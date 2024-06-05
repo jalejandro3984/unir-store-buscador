@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: store-core
+  datasource:
+    url: jdbc:mariadb://localhost:3306/unir_store
+    username: root
+    password: root
+  flyway:
+    url: jdbc:mariadb://localhost:3306/unir_store
+    user: root
+    password: root
+    enabled: true
+    schemas: unir_store
+    locations: classpath:db/migration/mysql
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    defer-datasource-initialization: true
