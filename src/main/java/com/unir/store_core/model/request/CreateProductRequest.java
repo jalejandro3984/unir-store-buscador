@@ -1,25 +1,19 @@
-package com.unir.store_core.model;
-
-import java.math.BigDecimal;
+package com.unir.store_core.model.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@ToString
-public class Product {
-	private Long id;
-	private Long categoryId;
+public class CreateProductRequest {
+
 	private String name;
+	private String categoryId;
 	private String description;
-	private BigDecimal price;
+	private Double price;
 	private Boolean visible;
 }
