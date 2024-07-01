@@ -15,7 +15,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.Id;
 
-@Document(indexName = "employees", createIndex = true)
+@Document(indexName = "products", createIndex = true)
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,7 +24,7 @@ import javax.persistence.Id;
 @ToString
 public class Product {
 	@Id
-	private Long id;
+	private String id;
 
 	@Field(type = FieldType.Keyword, name = Const.FIELD_CATEGORY)
 	private String categoryId;
@@ -38,6 +38,6 @@ public class Product {
 	@Field(type = FieldType.Double, name = Const.FIELD_PRICE)
 	private Double price;
 
-	@Field(type = FieldType.Boolean, name = Const.FIELD_AVAILABLE)
-	private Boolean visible;
+	/*@Field(type = FieldType.Boolean, name = Const.FIELD_AVAILABLE)
+	private Boolean visible;*/
 }

@@ -34,14 +34,14 @@ public class ProductsController {
 
     @GetMapping("/products")
     public ResponseEntity<ProductsQueryResponse> getProducts(
-            @RequestHeader Map<String, String> headers,
+           // @RequestHeader Map<String, String> headers,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) List<String> categoryValues,
             @RequestParam(required = false) List<String> priceValues,
             @RequestParam(required = false, defaultValue = "0") String page) {
 
-        log.info("headers: {}", headers);
+       // log.info("headers: {}", headers);
         ProductsQueryResponse products = service.getProducts(priceValues, categoryValues, name, description, page);
         return ResponseEntity.ok(products);
     }
