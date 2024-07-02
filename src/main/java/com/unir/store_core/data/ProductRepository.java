@@ -12,9 +12,9 @@ public interface ProductRepository extends ElasticsearchRepository<Product, Stri
 
     Optional<Product> findById(String id);
 
-  /*  Product save(Product product);
+    Product save(Product product);
 
-    void delete(Product product);*/
+    /*void delete(Product product);*/
 
     List<Product> findAll();
 }

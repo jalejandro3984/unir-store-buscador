@@ -14,6 +14,6 @@ public interface ProductsService {
 									  String description,
 									  String page);
 
-	//Product getProduct(String productId);
+	Product getProduct(String productId);
 
 }

@@ -26,11 +26,11 @@ public class ProductsServiceImpl implements ProductsService {
     //Ahora por defecto solo devolvera productos visibles
     return repository.findProducts(priceValues, categoryValues, name, description, page);
   }
-/*
+
   @Override
   public Product getProduct(String productId) {
     return repository.findById(productId).orElse(null);
-  } */
+  }
 
 
 

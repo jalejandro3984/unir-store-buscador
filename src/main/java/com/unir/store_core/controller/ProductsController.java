@@ -46,7 +46,7 @@ public class ProductsController {
         return ResponseEntity.ok(products);
     }
 
-    /*@GetMapping("/products/{productId}")
+    @GetMapping("/products/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable String productId) {
 
         log.info("Request received for product {}", productId);
@@ -58,7 +58,7 @@ public class ProductsController {
             return ResponseEntity.notFound().build();
         }
 
-    }*/
+    }
 
 
 

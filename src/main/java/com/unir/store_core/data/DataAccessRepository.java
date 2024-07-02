@@ -23,10 +23,7 @@ import org.springframework.stereotype.Repository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -39,6 +36,11 @@ public class DataAccessRepository {
     private final ElasticsearchOperations elasticClient;
 
     private final String[] Description_fields = {"Description", "Description._2gram", "Description._3gram"};
+
+    //Obtener producto por ID
+    public Optional<Product> findById(String id) {
+        return ProductRepository.findById(id);
+    }
 
     @SneakyThrows
     public ProductsQueryResponse findProducts(
