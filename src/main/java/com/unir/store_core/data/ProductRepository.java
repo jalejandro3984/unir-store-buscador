@@ -8,11 +8,11 @@ import com.unir.store_core.model.db.Product;
 
 public interface ProductRepository extends ElasticsearchRepository<Product, String> {
 
-    /*List<Product> findByName(String name);
+    List<Product> findByName(String name);
 
     Optional<Product> findById(String id);
 
-    Product save(Product product);
+  /*  Product save(Product product);
 
     void delete(Product product);*/
 

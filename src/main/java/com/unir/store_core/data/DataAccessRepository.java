@@ -42,8 +42,8 @@ public class DataAccessRepository {
 
     @SneakyThrows
     public ProductsQueryResponse findProducts(
-            List<String> categoryValues,
             List<String> priceValues,
+            List<String> categoryValues,
             String name,
             String description,
             String page) {
