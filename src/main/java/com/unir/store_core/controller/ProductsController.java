@@ -60,6 +60,32 @@ public class ProductsController {
 
     }
 
+    @DeleteMapping("/products/{productId}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable String productId) {
+
+        Boolean removed = service.removeProduct(productId);
+
+        if (Boolean.TRUE.equals(removed)) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    @PostMapping("/products")
+    public ResponseEntity<Product> getProduct(@RequestBody CreateProductRequest request) {
+
+        Product createdProduct = service.createProduct(request);
+
+        if (createdProduct != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+
+    }
+
 
 
 }

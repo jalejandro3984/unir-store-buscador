@@ -37,6 +37,14 @@ public class DataAccessRepository {
 
     private final String[] Description_fields = {"Description", "Description._2gram", "Description._3gram"};
 
+    public Product save(Product product) {
+        return ProductRepository.save(product);
+    }
+
+    public Boolean delete(Product product) {
+        ProductRepository.delete(product);
+        return Boolean.TRUE;
+    }
     //Obtener producto por ID
     public Optional<Product> findById(String id) {
         return ProductRepository.findById(id);

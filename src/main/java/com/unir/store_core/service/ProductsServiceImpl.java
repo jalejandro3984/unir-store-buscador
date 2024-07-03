@@ -32,7 +32,32 @@ public class ProductsServiceImpl implements ProductsService {
     return repository.findById(productId).orElse(null);
   }
 
+  @Override
+  public Boolean removeProduct(String productId) {
 
+    Product product = repository.findById(productId).orElse(null);
+    if (product != null) {
+      repository.delete(product);
+      return Boolean.TRUE;
+    } else {
+      return Boolean.FALSE;
+    }
+  }
+  @Override
+  public Product createProduct(CreateProductRequest request) {
+
+    if (request != null && StringUtils.hasLength(request.getName().trim())
+            && StringUtils.hasLength(request.getDescription().trim())
+            && StringUtils.hasLength(request.getCategoryId().trim()) && request.getVisible() != null) {
+
+      Product product = Product.builder().name(request.getName()).description(request.getDescription())
+              .categoryId(request.getCategoryId()).price(request.getPrice()).build();
+
+      return repository.save(product);
+    } else {
+      return null;
+    }
+  }
 
 
 }
