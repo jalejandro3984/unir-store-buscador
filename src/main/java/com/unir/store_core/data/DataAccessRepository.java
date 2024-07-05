@@ -37,6 +37,8 @@ public class DataAccessRepository {
 
     private final String[] Description_fields = {"Description", "Description._2gram", "Description._3gram"};
 
+    private final String[] Name_fields = {"ProductName", "ProductName._2gram", "ProductName._3gram"};
+
     public Product save(Product product) {
         return ProductRepository.save(product);
     }
@@ -45,8 +47,10 @@ public class DataAccessRepository {
         ProductRepository.delete(product);
         return Boolean.TRUE;
     }
+
+
     //Obtener producto por ID
-    public Optional<Product> findById(String id) {
+    public Optional<Product> findById(Integer id) {
         return ProductRepository.findById(id);
     }
 
@@ -60,7 +64,7 @@ public class DataAccessRepository {
 
         BoolQueryBuilder querySpec = QueryBuilders.boolQuery();
 
-        // Si el usuario ha seleccionado algun valor relacionado con el genero, lo añadimos a la query
+
         if (categoryValues != null && !categoryValues.isEmpty()) {
             categoryValues.forEach(
                     category -> querySpec.must(QueryBuilders.termQuery(Const.FIELD_CATEGORY, category))
@@ -69,7 +73,7 @@ public class DataAccessRepository {
 
         // Si el usuario ha seleccionado algun valor relacionado con el nombre, lo añadimos a la query
         if (!StringUtils.isEmpty(name)) {
-            querySpec.must(QueryBuilders.matchQuery(Const.FIELD_NAME, name));
+            querySpec.must(QueryBuilders.multiMatchQuery(name, Name_fields).type(MultiMatchQueryBuilder.Type.BOOL_PREFIX));
         }
 
         // Si el usuario ha seleccionado algun valor relacionado con la direccion, lo añadimos a la query

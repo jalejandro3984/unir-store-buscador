@@ -10,7 +10,7 @@ public interface ProductRepository extends ElasticsearchRepository<Product, Stri
 
     List<Product> findByName(String name);
 
-    Optional<Product> findById(String id);
+    Optional<Product> findById(Integer id);
 
     Product save(Product product);
 

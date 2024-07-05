@@ -3,11 +3,7 @@ package com.unir.store_core.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.unir.store_core.model.request.CreateProductRequest;
 import com.unir.store_core.service.ProductsService;
@@ -19,9 +15,6 @@ import java.util.Map;
 
 import com.unir.store_core.model.response.ProductsQueryResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.unir.store_core.model.db.Product;
 
@@ -47,7 +40,7 @@ public class ProductsController {
     }
 
     @GetMapping("/products/{productId}")
-    public ResponseEntity<Product> getProduct(@PathVariable String productId) {
+    public ResponseEntity<Product> getProduct(@PathVariable Integer productId) {
 
         log.info("Request received for product {}", productId);
         Product product = service.getProduct(productId);
@@ -61,7 +54,7 @@ public class ProductsController {
     }
 
     @DeleteMapping("/products/{productId}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable String productId) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable Integer productId) {
 
         Boolean removed = service.removeProduct(productId);
 
@@ -75,6 +68,19 @@ public class ProductsController {
 
     @PostMapping("/products")
     public ResponseEntity<Product> getProduct(@RequestBody CreateProductRequest request) {
+
+        Product createdProduct = service.createProduct(request);
+
+        if (createdProduct != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+
+    }
+
+    @PatchMapping("/products/update")
+    public ResponseEntity<Product> updateProduct(@RequestBody CreateProductRequest request) {
 
         Product createdProduct = service.createProduct(request);
 

@@ -14,10 +14,12 @@ public interface ProductsService {
 									  String description,
 									  String page);
 
-	Product getProduct(String productId);
+	Product getProduct(Integer productId);
 
-	Boolean removeProduct(String productId);
+	Boolean removeProduct(Integer productId);
 
 	Product createProduct(CreateProductRequest request);
+
+	Boolean updateProduct(CreateProductRequest request);
 
 }

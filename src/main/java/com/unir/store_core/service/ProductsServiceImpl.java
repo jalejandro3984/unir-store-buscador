@@ -28,12 +28,12 @@ public class ProductsServiceImpl implements ProductsService {
   }
 
   @Override
-  public Product getProduct(String productId) {
+  public Product getProduct(Integer productId) {
     return repository.findById(productId).orElse(null);
   }
 
   @Override
-  public Boolean removeProduct(String productId) {
+  public Boolean removeProduct(Integer productId) {
 
     Product product = repository.findById(productId).orElse(null);
     if (product != null) {
@@ -50,14 +50,25 @@ public class ProductsServiceImpl implements ProductsService {
             && StringUtils.hasLength(request.getDescription().trim())
             && StringUtils.hasLength(request.getCategoryId().trim()) && request.getVisible() != null) {
 
-      Product product = Product.builder().name(request.getName()).description(request.getDescription())
-              .categoryId(request.getCategoryId()).price(request.getPrice()).build();
+      Product product = Product.builder().id(request.getId()).name(request.getName()).description(request.getDescription())
+              .categoryId(request.getCategoryId()).price(request.getPrice()).quantity(request.getQuantity())
+              .image(request.getImage()).visible(request.getVisible()).build();
 
       return repository.save(product);
     } else {
       return null;
     }
   }
-
+  @Override
+  public Boolean updateProduct(CreateProductRequest request) {
+    Product product = repository.findById(request.getId()).orElse(null);
+    if (product != null){
+      product.setQuantity(request.getQuantity());
+      product.setVisible(request.getVisible());
+      return Boolean.TRUE;
+    } else {
+      return Boolean.FALSE;
+    }
+  }
 
 }
