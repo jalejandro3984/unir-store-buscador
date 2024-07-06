@@ -26,7 +26,7 @@ public class ProductsController {
     private final ProductsService service;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts(String keyword) {
+    public ResponseEntity<List<Product>> getProducts(@RequestParam(required = false) String keyword) {
         List<Product> products = service.search(keyword);
         return ResponseEntity.ok(products);
     }
