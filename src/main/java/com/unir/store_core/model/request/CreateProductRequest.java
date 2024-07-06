@@ -10,11 +10,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateProductRequest {
-	private Integer id;
+	private String id;
 	private String name;
-	private String categoryId;
+	private String category_id;
+	private String categoryName;
 	private String description;
-	private Double price;
+	private Float price;
 	private String image;
 	private Integer quantity;
 	private Boolean visible;

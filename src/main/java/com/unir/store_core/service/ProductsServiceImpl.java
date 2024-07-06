@@ -18,22 +18,17 @@ public class ProductsServiceImpl implements ProductsService {
   private final DataAccessRepository repository;
 
   @Override
-  public ProductsQueryResponse getProducts(List<String> priceValues,
-                                           List<String> categoryValues,
-                                           String name,
-                                           String description,
-                                           String page) {
-    //Ahora por defecto solo devolvera productos visibles
-    return repository.findProducts(priceValues, categoryValues, name, description, page);
+  public List<Product> search(String keyword) {
+    return repository.search(keyword);
   }
 
   @Override
-  public Product getProduct(Integer productId) {
+  public Product getProduct(String productId) {
     return repository.findById(productId).orElse(null);
   }
 
   @Override
-  public Boolean removeProduct(Integer productId) {
+  public Boolean removeProduct(String productId) {
 
     Product product = repository.findById(productId).orElse(null);
     if (product != null) {
@@ -46,13 +41,14 @@ public class ProductsServiceImpl implements ProductsService {
   @Override
   public Product createProduct(CreateProductRequest request) {
 
-    if (request != null && StringUtils.hasLength(request.getName().trim())
-            && StringUtils.hasLength(request.getDescription().trim())
-            && StringUtils.hasLength(request.getCategoryId().trim()) && request.getVisible() != null) {
+    if (request != null && (request.getName() != null ? StringUtils.hasLength(request.getName().trim()) : null)
+            && (request.getDescription() != null ?  StringUtils.hasLength(request.getDescription().trim()): null)
+            && (request.getCategoryName() != null ? StringUtils.hasLength(request.getCategoryName().trim()): null)
+            && request.getVisible() != null) {
 
       Product product = Product.builder().id(request.getId()).name(request.getName()).description(request.getDescription())
-              .categoryId(request.getCategoryId()).price(request.getPrice()).quantity(request.getQuantity())
-              .image(request.getImage()).visible(request.getVisible()).build();
+              .categoryName(request.getCategoryName()).price(request.getPrice()).quantity(request.getQuantity())
+              .category_id(request.getCategory_id()).image(request.getImage()).visible(request.getVisible()).build();
 
       return repository.save(product);
     } else {
@@ -63,8 +59,9 @@ public class ProductsServiceImpl implements ProductsService {
   public Boolean updateProduct(CreateProductRequest request) {
     Product product = repository.findById(request.getId()).orElse(null);
     if (product != null){
-      product.setQuantity(request.getQuantity());
-      product.setVisible(request.getVisible());
+      product.setQuantity(request.getQuantity()!=null?request.getQuantity():product.getQuantity());
+      product.setVisible(request.getVisible()!=null?request.getVisible():product.getVisible());
+      repository.save(product);
       return Boolean.TRUE;
     } else {
       return Boolean.FALSE;

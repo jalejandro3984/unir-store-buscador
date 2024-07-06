@@ -5,15 +5,15 @@ public class Const {
         throw new IllegalStateException("Utility class");
     }
 
-    public static final String FIELD_ID = "Id";
-    public static final String FIELD_CATEGORY = "Category";
-    public static final String FIELD_NAME = "ProductName";
-    public static final String FIELD_DESCRIPTION = "Description";
-    public static final String FIELD_PRICE = "Price";
-    public static final String FIELD_IMAGE = "Image";
-    public static final String FIELD_QUANTITY = "Quantity";
-    public static final String FIELD_VISIBLE = "Visible";
-
-
+    public static final String FIELD_ID = "id";
+    public static final String FIELD_CATEGORY = "categoryName";
+    public static final String FIELD_NAME = "name";
+    public static final String FIELD_DESCRIPTION = "description";
+    public static final String FIELD_PRICE = "price";
+    public static final String FIELD_IMAGE = "image";
+    public static final String FIELD_QUANTITY = "qty";
+    public static final String FIELD_VISIBLE = "visible";
+    public static final String FIELD_CATEGORY_ID = "category_id";
+    public static final String FIELD_DATE = "created_at";
 
 }

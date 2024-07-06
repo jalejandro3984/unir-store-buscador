@@ -8,15 +8,11 @@ import java.util.List;
 
 public interface ProductsService {
 
-	ProductsQueryResponse getProducts(List<String> priceValues,
-									  List<String> categoryValues,
-									  String name,
-									  String description,
-									  String page);
+	List<Product> search(String keyword);
 
-	Product getProduct(Integer productId);
+	Product getProduct(String productId);
 
-	Boolean removeProduct(Integer productId);
+	Boolean removeProduct(String productId);
 
 	Product createProduct(CreateProductRequest request);
 

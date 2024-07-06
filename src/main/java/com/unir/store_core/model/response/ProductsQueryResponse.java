@@ -15,5 +15,4 @@ import java.util.Map;
 @Setter
 public class ProductsQueryResponse {
     private List<Product> products;
-    private Map<String, List<AggregationDetails>> aggs;
 }

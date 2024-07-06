@@ -26,21 +26,13 @@ public class ProductsController {
     private final ProductsService service;
 
     @GetMapping("/products")
-    public ResponseEntity<ProductsQueryResponse> getProducts(
-           // @RequestHeader Map<String, String> headers,
-            @RequestParam(required = false) String description,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) List<String> categoryValues,
-            @RequestParam(required = false) List<String> priceValues,
-            @RequestParam(required = false, defaultValue = "0") String page) {
-
-       // log.info("headers: {}", headers);
-        ProductsQueryResponse products = service.getProducts(priceValues, categoryValues, name, description, page);
+    public ResponseEntity<List<Product>> getProducts(String keyword) {
+        List<Product> products = service.search(keyword);
         return ResponseEntity.ok(products);
     }
 
     @GetMapping("/products/{productId}")
-    public ResponseEntity<Product> getProduct(@PathVariable Integer productId) {
+    public ResponseEntity<Product> getProduct(@PathVariable String productId) {
 
         log.info("Request received for product {}", productId);
         Product product = service.getProduct(productId);
@@ -54,7 +46,7 @@ public class ProductsController {
     }
 
     @DeleteMapping("/products/{productId}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Integer productId) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable String productId) {
 
         Boolean removed = service.removeProduct(productId);
 
@@ -82,10 +74,10 @@ public class ProductsController {
     @PatchMapping("/products/update")
     public ResponseEntity<Product> updateProduct(@RequestBody CreateProductRequest request) {
 
-        Product createdProduct = service.createProduct(request);
+        Boolean updated = service.updateProduct(request);
 
-        if (createdProduct != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+        if (Boolean.TRUE.equals(updated)) {
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
         }
